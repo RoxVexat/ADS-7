@@ -1,18 +1,15 @@
 // Copyright 2022 NNTU-CS
-#include <iostream>
-#include "train.h"
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include "train.h"
 
-
-int main() 
-{
+int main() {
     std::srand(static_cast<unsigned int>(time(nullptr)));
 
     std::cout << "n\tfalse\t\ttrue\t\trndom\n";
 
-    for (int carriageCount = 2; carriageCount <= 100; carriageCount++) 
-    {
+    for (int carriageCount = 2; carriageCount <= 100; carriageCount++) {
         int operationsFalse;
         int operationsTrue;
         int operationsRandom;
