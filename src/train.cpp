@@ -1,15 +1,12 @@
 // Copyright 2021 NNTU-CS
 #include "train.h"
 
-Train::Train()
-    : countOp(0), first(nullptr), current(nullptr){}
+Train::Train() : countOp(0), first(nullptr), current(nullptr) {}
 
-Train::~Train()
-{
+Train::~Train() {
     if (!first) return;
     Car* carriage = first->next;
-    while (carriage != first)
-    {
+    while (carriage != first) {
         Car* toDelete = carriage->next;
         delete carriage;
         carriage = toDelete;
@@ -17,18 +14,14 @@ Train::~Train()
     delete first;
 }
 
-void Train::addCar(bool light)
-{
+void Train::addCar(bool light) {
     Car* newCarriage = new Car{ light, nullptr, nullptr };
-    if (!first)
-    {
+    if (!first) {
         first = newCarriage;
         first->next = first;
         first->prev = first;
         current = first;
-    }
-    else
-    {
+    } else {
         Car* tail = first->prev;
         tail->next = newCarriage;
         newCarriage->prev = tail;
@@ -37,55 +30,44 @@ void Train::addCar(bool light)
     }
 }
 
-int Train::getLength()
-{
+int Train::getLength() {
     if (!first) return 0;
     resetOps();
     current = first;
-    if (!current->light)
-    {
+    if (!current->light) {
         current->light = true;
     }
     int length = 0;
     bool completed = false;
-    while (!completed)
-    {
-        while (true)
-        {
+    while (!completed) {
+        while (true) {
             current = current->next;
             countOp++;
             length++;
-            if (current->light)
-            {
+            if (current->light) {
                 current->light = false;
                 break;
             }
         }
         int backSteps = 0;
-        while (backSteps < length)
-        {
+        while (backSteps < length) {
             current = current->prev;
             countOp++;
             backSteps++;
         }
-        if (!current->light)
-        {
+        if (!current->light) {
             completed = true;
-        }
-        else
-        {
+        } else {
             length = 0;
         }
     }
     return length;
 }
 
-int Train::getOpCount()
-{
+int Train::getOpCount() {
     return countOp;
 }
 
-void Train::resetOps()
-{
+void Train::resetOps() {
     countOp = 0;
 }
